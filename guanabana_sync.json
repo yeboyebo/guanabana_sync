@@ -1,0 +1,24 @@
+{
+    "name": "guanabana_sync",
+    "modifications": {
+        "replaceFile": [
+            {
+                "name": "dependencias.json",
+                "path": "config/"
+            }
+        ],
+        "patchJson": [
+            {
+                "name": "urls.json",
+                "path": "config/"
+            },
+            {
+                "name": "registros.json",
+                "path": "config/"
+            }
+        ],
+        "patchScript": [],
+        "addFile": [],
+        "deleteFile": []
+    }
+}

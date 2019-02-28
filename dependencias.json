@@ -1,0 +1,10 @@
+{
+    "dependencias": [
+        {
+            "version": "v1.0",
+            "key": "baseparche"
+        }
+    ],
+    "fk": "True",
+    "fun_aq": null
+}
