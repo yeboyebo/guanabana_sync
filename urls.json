@@ -1,3 +1,32 @@
 {
-    "modifications": []
+    "modifications": [
+        {
+            "type": "insertAfterNode",
+            "path": "/models/flfact_tpv/tpv_vales",
+            "value": {
+                "tpv_fechasincrotienda": null
+            }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/models/flfactalma/lineasregstocks",
+            "value": {
+                "movistock": null
+            }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/models/flfactalma/movistock",
+            "value": {
+                "mg_customers": null
+            }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/models/flfactalma/mg_customers",
+            "value": {
+                "mg_datosenviocomanda": null
+            }
+        }
+    ]
 }

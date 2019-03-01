@@ -17,8 +17,74 @@
                 "path": "config/"
             }
         ],
-        "patchScript": [],
-        "addFile": [],
+        "patchScript": [
+            {
+                "name": "model_flsyncppal__flsyncppal_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flfact_tpv__tpv_comandas_def.py",
+                "path": "models/flfact_tpv/"
+            },
+            {
+                "name": "model_flfact_tpv__tpv_comandas.py",
+                "path": "models/flfact_tpv/"
+            }
+        ],
+        "addFile": [
+            {
+                "name": "model_flsyncppal__gb_updateStocks_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flsyncppal__gb_updatePrices_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flsyncppal__gb_importCustomers_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flsyncppal__gb_importOrders_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flfact_tpv__tpv_fechasincrotienda.py",
+                "path": "models/flfact_tpv/"
+            },
+            {
+                "name": "model_flfact_tpv__tpv_fechasincrotienda_def.py",
+                "path": "models/flfact_tpv/"
+            },
+            {
+                "name": "model_flfactalma__movistock.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "model_flfactalma__movistock_def.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "model_flfactalma__mg_customers.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "model_flfactalma__mg_customers_def.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "model_flfactalma__mg_datosenviocomanda.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "model_flfactalma__mg_datosenviocomanda_def.py",
+                "path": "models/flfactalma/"
+            },
+            {
+                "name": "app_sync__tasks.py",
+                "path": "apps/sync/"
+            }
+        ],
         "deleteFile": []
     }
 }
