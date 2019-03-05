@@ -83,6 +83,14 @@
             {
                 "name": "app_sync__tasks.py",
                 "path": "apps/sync/"
+            },
+            {
+                "path": "models/flfactalma/",
+                "name": "model_flfactalma__mg_colasincroweb.py"
+            },
+            {
+                "path": "models/flfactalma/",
+                "name": "model_flfactalma__mg_colasincroweb_def.py"
             }
         ],
         "deleteFile": []

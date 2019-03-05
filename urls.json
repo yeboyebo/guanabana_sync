@@ -27,6 +27,13 @@
             "value": {
                 "mg_datosenviocomanda": null
             }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/models/flfactalma/mg_datosenviocomanda",
+            "value": {
+                "mg_colasincroweb": null
+            }
         }
     ]
 }

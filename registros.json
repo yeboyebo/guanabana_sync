@@ -15,6 +15,20 @@
             "value": {
                 "movistock": null
             }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/flfactalma/movistock",
+            "value": {
+                "mg_colasincroweb": null
+            }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/flfactalma/mg_colasincroweb",
+            "value": {
+                "mg_customers": null
+            }
         }
     ]
 }
