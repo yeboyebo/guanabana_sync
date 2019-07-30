@@ -14,7 +14,7 @@ class guanabana_sync(flfact_tpv):
     def guanabana_sync_gbSyncOrders(self, params):
         if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
             tasks.getUnsynchronizedOrders.delay(params['fakeRequest'])
-            return True
+            return {"msg": "Tarea encolada correctamente"}
         else:
             print("no tengo contraseña")
 
@@ -23,7 +23,7 @@ class guanabana_sync(flfact_tpv):
     def guanabana_sync_gbSyncStock(self, params):
         if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
             tasks.updateProductStock.delay(params['fakeRequest'])
-            return True
+            return {"msg": "Tarea encolada correctamente"}
         else:
             print("no tengo contraseña")
 
@@ -32,7 +32,7 @@ class guanabana_sync(flfact_tpv):
     def guanabana_sync_gbSyncPrices(self, params):
         if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
             tasks.updateProductPrice.delay(params['fakeRequest'])
-            return True
+            return {"msg": "Tarea encolada correctamente"}
         else:
             print("no tengo contraseña")
 
@@ -41,7 +41,7 @@ class guanabana_sync(flfact_tpv):
     def guanabana_sync_gbSyncCust(self, params):
         if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
             tasks.getUnsynchronizedCustomers.delay(params['fakeRequest'])
-            return True
+            return {"msg": "Tarea encolada correctamente"}
         else:
             print("no tengo contraseña")
 
