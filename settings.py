@@ -11,7 +11,6 @@ from YBAQNEXT.settings import *
 from YBAQNEXT.yeboapps import *
 from .local import *
 
-BROKER_URL = "amqp://desarrollo:desarrollo@localhost:5672/desarrollo"
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
