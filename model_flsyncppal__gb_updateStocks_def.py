@@ -55,6 +55,11 @@ class guanabana_sync(interna):
             ids_enviados = []
             stock = {}
             while q.next():
+                if q.isNull('datossincro'):
+                    ids_enviados.append(str(q.value('idssw')))
+                    body.append(stock)
+                    continue
+
                 stock = json.loads(q.value('datossincro'))
                 if stock['error'] == "" or stock['error'] is None:
                     ids_enviados.append(str(q.value('idssw')))
