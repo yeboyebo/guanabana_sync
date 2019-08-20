@@ -176,7 +176,8 @@ class guanabana_sync(interna):
             codpostal = str(order["billing_address"]["postcode"])
             city = order["billing_address"]["city"]
             region = order["billing_address"]["region"]
-            codpais = order["billing_address"]["country_id"]
+            codpais = _i.obtenerCodPais(order["billing_address"]["country_id"])
+            tasaconv = _i.obtenerTasaConversion(order["currency"])
             telefonofac = order["billing_address"]["telephone"]
             codpago = _i.obtenerCodPago(order["payment_method"])
             email = order["email"]
@@ -200,10 +201,11 @@ class guanabana_sync(interna):
             curPedido.setValueBuffer("telefono1", telefonofac[:30] if telefonofac else telefonofac)
             curPedido.setValueBuffer("codpais", codpais[:20] if codpais else codpais)
             curPedido.setValueBuffer("codpago", codpago[:10] if codpago else codpago)
-            curPedido.setValueBuffer("coddivisa", "EUR")
-            curPedido.setValueBuffer("tasaconv", 1)
+            curPedido.setValueBuffer("coddivisa", order["currency"])
+            curPedido.setValueBuffer("tasaconv",  tasaconv)
             curPedido.setValueBuffer("email", email[:100] if email else email)
             curPedido.setValueBuffer("total", order["grand_total"])
+            curPedido.setValueBuffer("totaleuros", order["grand_total"] * tasaconv)
             curPedido.setValueBuffer("neto", order["subtotal"])
             curPedido.setValueBuffer("totaliva", order["tax_amount"])
             curPedido.setValueBuffer("gu_pedidoferia", "Web Mayorista")
@@ -253,7 +255,7 @@ class guanabana_sync(interna):
             codpostalenv = str(order["shipping_address"]["postcode"])
             ciudad = order["shipping_address"]["city"]
             region = order["shipping_address"]["region"]
-            pais = order["shipping_address"]["country_id"]
+            pais = _i.obtenerCodPais(order["shipping_address"]["country_id"])
             telefonoenv = order["shipping_address"]["telephone"]
 
             curPedi.setValueBuffer("mg_numcliente", numcliente[:15] if numcliente else numcliente)
@@ -286,7 +288,7 @@ class guanabana_sync(interna):
             codpostalfac = str(order["billing_address"]["postcode"])
             ciudad = order["billing_address"]["city"]
             region = order["billing_address"]["region"]
-            pais = order["billing_address"]["country_id"]
+            pais = _i.obtenerCodPais(order["billing_address"]["country_id"])
             telefonofac = order["billing_address"]["telephone"]
             curPedi.setValueBuffer("mg_nombrefac", nombrefac[:100] if nombrefac else nombrefac)
             curPedi.setValueBuffer("mg_apellidosfac", apellidosfac[:200] if apellidosfac else apellidosfac)
@@ -366,7 +368,7 @@ class guanabana_sync(interna):
         if not nomPais or nomPais == "":
             return codSerie
 
-        codPais = qsatype.FLUtil.quickSqlSelect("paises", "codpais", "UPPER(codpais) = '" + nomPais.upper() + "'")
+        codPais = qsatype.FLUtil.quickSqlSelect("paises", "codpais", "UPPER(codiso) = '" + nomPais.upper() + "'")
         if not codPais or codPais == "":
             return codSerie
 
@@ -395,7 +397,7 @@ class guanabana_sync(interna):
         if not paisfc or paisfc == "":
             return ""
 
-        codPais = qsatype.FLUtil.quickSqlSelect("paises", "codpais", "UPPER(codpais) = '" + paisfc.upper() + "'")
+        codPais = qsatype.FLUtil.quickSqlSelect("paises", "codpais", "UPPER(codiso) = '" + paisfc.upper() + "'")
         if not codPais or codPais == "":
             return ""
 
@@ -407,6 +409,13 @@ class guanabana_sync(interna):
             codPago = qsatype.FactoriaModulos.get('flfactppal').iface.pub_valorDefectoEmpresa("codpago")
 
         return codPago
+
+    def guanabana_sync_obtenerTasaConversion(self, divisa):
+        tasa = qsatype.FLUtil.quickSqlSelect("divisas", "tasaconv", "coddivisa = '" + str(divisa) + "'")
+        if not tasa:
+            tasa = 1
+
+        return tasa
 
     def guanabana_sync_conFac(self, fac):
         if not fac or fac == "":
@@ -782,6 +791,9 @@ class guanabana_sync(interna):
 
     def obtenerCodPago(self, metPago):
         return self.ctx.guanabana_sync_obtenerCodPago(metPago)
+
+    def obtenerTasaConversion(self, divisa):
+        return self.ctx.guanabana_sync_obtenerTasaConversion(divisa)
 
     def conFac(self, fac):
         return self.ctx.guanabana_sync_conFac(fac)
