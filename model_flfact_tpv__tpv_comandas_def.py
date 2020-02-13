@@ -1,9 +1,12 @@
 
 # @class_declaration guanabana_sync #
 from sync import tasks
+from models.flsyncppal import flsyncppal_def as syncppal
 
 
 class guanabana_sync(flfact_tpv):
+
+    params_sincro = syncppal.iface.get_param_sincro('apipass')
 
     def guanabana_sync_getActivity(self, params):
         return tasks.getActivity()
@@ -12,7 +15,7 @@ class guanabana_sync(flfact_tpv):
         return tasks.revoke(params["id"])
 
     def guanabana_sync_gbSyncOrders(self, params):
-        if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
+        if "passwd" in params and params['passwd'] == self.params_sincro['auth']:
             tasks.getUnsynchronizedOrders.delay(params['fakeRequest'])
             return {"msg": "Tarea encolada correctamente"}
         else:
@@ -21,7 +24,7 @@ class guanabana_sync(flfact_tpv):
         return False
 
     def guanabana_sync_gbSyncStock(self, params):
-        if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
+        if "passwd" in params and params['passwd'] == params_sincro['auth']:
             tasks.updateProductStock.delay(params['fakeRequest'])
             return {"msg": "Tarea encolada correctamente"}
         else:
@@ -30,7 +33,7 @@ class guanabana_sync(flfact_tpv):
         return False
 
     def guanabana_sync_gbSyncPrices(self, params):
-        if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
+        if "passwd" in params and params['passwd'] == self.params_sincro['auth']:
             tasks.updateProductPrice.delay(params['fakeRequest'])
             return {"msg": "Tarea encolada correctamente"}
         else:
@@ -39,7 +42,7 @@ class guanabana_sync(flfact_tpv):
         return False
 
     def guanabana_sync_gbSyncCust(self, params):
-        if "passwd" in params and params['passwd'] == "bUqfqBMnoH":
+        if "passwd" in params and params['passwd'] == self.params_sincro['auth']:
             tasks.getUnsynchronizedCustomers.delay(params['fakeRequest'])
             return {"msg": "Tarea encolada correctamente"}
         else:
