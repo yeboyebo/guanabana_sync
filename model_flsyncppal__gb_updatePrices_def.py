@@ -25,16 +25,19 @@ class guanabana_sync(interna):
         cdSmall = 10
         cdLarge = 180
 
+        params_b2c = syncppal.iface.get_param_sincro('b2c')
+        params_prices = syncppal.iface.get_param_sincro('b2cPricesUpload')
+
         headers = None
         if qsatype.FLUtil.isInProd():
             headers = {
                 "Content-Type": "application/json",
-                "Authorization": "Basic dGVzdDp0ZXN0"
+                "Authorization": params_b2c['auth']
             }
         else:
             headers = {
                 "Content-Type": "application/json",
-                "Authorization": "Basic dGVzdDp0ZXN0"
+                "Authorization": params_b2c['test_auth']
             }
 
         try:
@@ -84,17 +87,13 @@ class guanabana_sync(interna):
                 syncppal.iface.log("Éxito. No hay precios que sincronizar.", "gbsyncprices")
                 return cdLarge
 
-            url = None
-            if qsatype.FLUtil.isInProd():
-                url = 'http://www.guanabana.store/syncapi/index.php/productupdates'
-            else:
-                url = 'http://local.guanabana.store/syncapi/index.php/productupdates'
+            url = params_prices['url'] if qsatype.FLUtil.isInProd() else params_prices['test_url']
 
             qsatype.debug(ustr("Llamando a ", url, " ", json.dumps(body)))
             response = requests.post(url, data=json.dumps(body), headers=headers)
             stCode = response.status_code
             jsonres = None
-            if response and stCode == 202:
+            if response and stCode == params_prices['success_code']:
                 jsonres = response.json()
 
                 if jsonres and "request_id" in jsonres:
