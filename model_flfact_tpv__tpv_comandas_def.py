@@ -24,7 +24,7 @@ class guanabana_sync(flfact_tpv):
         return False
 
     def guanabana_sync_gbSyncStock(self, params):
-        if "passwd" in params and params['passwd'] == params_sincro['auth']:
+        if "passwd" in params and params['passwd'] == self.params_sincro['auth']:
             tasks.updateProductStock.delay(params['fakeRequest'])
             return {"msg": "Tarea encolada correctamente"}
         else:
