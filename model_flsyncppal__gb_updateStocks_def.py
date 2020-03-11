@@ -78,7 +78,7 @@ class guanabana_sync(interna):
             response = requests.post(url, data=json.dumps(body), headers=headers)
             stCode = response.status_code
             jsonres = None
-            if response and stCode == params_stock['success_code']:
+            if response and stCode == int(params_stock['success_code']):
                 jsonres = response.json()
 
                 if jsonres and "request_id" in jsonres:
