@@ -162,14 +162,14 @@ class guanabana_sync(interna):
             cif = order["cif"][:20] if order["cif"] and order["cif"] != "" else ""
             if not cif or cif == "":
                 cif = "-"
-            nombrecliente = str(order["billing_address"]["firstname"]) + " " + str(order["billing_address"]["lastname"])
+            nombrecliente = str(order["company"])
 
-            street = order["billing_address"]["street"].split(" ")
-            dirtipovia = street[0] if len(street) >= 1 else ""
-            direccion = street[1] if len(street) >= 2 else ""
-            dirnum = street[2] if len(street) >= 3 else ""
-            dirotros = street[3] if len(street) >= 4 else ""
-
+            street = order["billing_address"]["street"]
+            dirtipovia = ""
+            direccion = street
+            dirnum = ""
+            dirotros = ""
+            qsatype.debug("\n \n " + direccion +" \n \n")
             codpostal = str(order["billing_address"]["postcode"])
             city = order["billing_address"]["city"]
             region = order["billing_address"]["region"]
@@ -237,18 +237,18 @@ class guanabana_sync(interna):
         try:
 
             tracking = order["tracking_number"] if order["tracking_number"] and order["tracking_number"] != "" else ""
-            street = order["shipping_address"]["street"].split(" ")
-            dirtipoviaenv = street[0] if len(street) >= 1 else ""
-            direccionenv = str(street[1]) + " " + str(street[2]) if len(street) >= 3 else ""
-            dirnumenv = street[3] if len(street) >= 4 else ""
-            dirotrosenv = street[4] if len(street) >= 5 else ""
+            street = order["shipping_address"]["street"]
+            dirtipoviaenv = ""
+            direccionenv = street
+            dirnumenv = ""
+            dirotrosenv = ""
 
             numcliente = order["customer_id"]
             email = order["email"]
             metodopago = order["payment_method"]
             metodoenvio = order["shipping_description"]
-            nombreenv = order["shipping_address"]["firstname"]
-            apellidosenv = order["shipping_address"]["lastname"]
+            nombreenv = order["company"]
+            apellidosenv = ""
             codpostalenv = str(order["shipping_address"]["postcode"])
             ciudad = order["shipping_address"]["city"]
             region = order["shipping_address"]["region"]
@@ -275,13 +275,13 @@ class guanabana_sync(interna):
             curPedi.setValueBuffer("mg_telefonoenv", telefonoenv[:30] if telefonoenv else telefonoenv)
             curPedi.setValueBuffer("mg_gastosenv", order["shipping_price"])
             # Facturacion
-            street = order["billing_address"]["street"].split(" ")
-            dirtipoviafac = str(street[0]) if len(street) >= 1 else ""
-            direccionfac = str(street[1]) + " " + str(street[2]) if len(street) >= 3 else ""
-            dirnumfac = street[3] if len(street) >= 4 else ""
-            dirotrosfac = street[4] if len(street) >= 5 else ""
-            nombrefac = order["billing_address"]["firstname"]
-            apellidosfac = order["billing_address"]["lastname"]
+            street = order["billing_address"]["street"]
+            dirtipoviafac = ""
+            direccionfac = street
+            dirnumfac = ""
+            dirotrosfac = ""
+            nombrefac = order["company"]
+            apellidosfac = ""
             codpostalfac = str(order["billing_address"]["postcode"])
             ciudad = order["billing_address"]["city"]
             region = order["billing_address"]["region"]
