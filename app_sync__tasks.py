@@ -2,6 +2,7 @@ from AQNEXT.celery import app
 from YBLEGACY import qsatype
 from YBUTILS import globalValues
 from YBUTILS import DbRouter
+import datetime
 
 from models.flsyncppal import flsyncppal_def as syncppal
 from models.flsyncppal import gb_importOrders_def as iGbOrders
@@ -73,7 +74,7 @@ def getUnsynchronizedOrders(r):
         activo = False
 
     if activo:
-        getUnsynchronizedOrders.apply_async((r,), countdown=cdTime)
+        getUnsynchronizedOrders.apply_async((r,), eta=datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=cdTime))
     else:
         syncppal.iface.log("Info. Proceso detenido", "gbsyncorders")
 
@@ -96,7 +97,7 @@ def updateProductStock(r):
         activo = False
 
     if activo:
-        updateProductStock.apply_async((r,), countdown=cdTime)
+        updateProductStock.apply_async((r,), eta=datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=cdTime))
     else:
         syncppal.iface.log("Info. Proceso detenido", "gbsyncstock")
 
@@ -119,7 +120,7 @@ def updateProductPrice(r):
         activo = False
 
     if activo:
-        updateProductPrice.apply_async((r,), countdown=cdTime)
+        updateProductPrice.apply_async((r,), eta=datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=cdTime))
     else:
         syncppal.iface.log("Info. Proceso detenido", "gbsyncprices")
 
@@ -142,6 +143,6 @@ def getUnsynchronizedCustomers(r):
         activo = False
 
     if activo:
-        getUnsynchronizedCustomers.apply_async((r,), countdown=cdTime)
+        getUnsynchronizedCustomers.apply_async((r,), eta=datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=cdTime))
     else:
         syncppal.iface.log("Info. Proceso detenido", "gbsynccust")
